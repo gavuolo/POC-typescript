@@ -1,13 +1,14 @@
 import db from "../config/database.js";
+import { QueryResult } from "pg";
+import { MovieBody } from "../protocols/moviesProtocols.js"
 
-async function createRepositoryMovie(movie) {
-    console.log('REPOSITORY:', db)
+async function createRepositoryMovie(movie: MovieBody): Promise<QueryResult> {
     await db.query(
         `
-            INSERT INTO movies (name, plataform, genre)
-            VALUES ($1, $2, $3)
+            INSERT INTO movies (name, platform, genre, status)
+            VALUES ($1, $2, $3, false)
             `,
-        [movie.name, movie.plataform, movie.genre]
+        [movie.name, movie.platform, movie.genre]
     )
 }
 
