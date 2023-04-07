@@ -29,9 +29,19 @@ async function deleteMovieRepository(id: number) {
     `, [id])
 }
 
+async function updateMovieRepository(id: number, comment: string) {
+    return await db.query(`
+    UPDATE movies 
+    SET status = true, comments = $1 WHERE id = $2
+    `,
+    [comment, id]
+    )
+}
+
 export default {
     createRepositoryMovie,
     allMovieRepository,
     deleteMovieRepository,
-    getById
+    getById,
+    updateMovieRepository
 }

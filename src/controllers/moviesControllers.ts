@@ -1,6 +1,7 @@
 import moviesServices from "../services/moviesServices.js";
 import { Request, Response, NextFunction } from "express";
 import { MovieBody } from "../protocols/moviesProtocols.js"
+import moviesRepositories from "../repositories/moviesRepositories.js";
 
 async function postMovie(req: Request, res: Response, next: NextFunction) {
 
@@ -28,15 +29,28 @@ async function getMovies(req: Request, res: Response, next: NextFunction) {
 
 async function deleteMovie(req: Request, res: Response, next: NextFunction) {
     const id = req.params.id
-    try{
+    try {
         await moviesServices.deleteMovies(id)
         return res.status(204).send('Filme deletado com sucesso')
-    } catch(err){
+    } catch (err) {
         next(err);
     }
 }
+
+async function putMovie(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id
+    const comment = req.body
+    try {
+        await moviesServices.updateStatus(id, comment)
+        return res.sendStatus(200)
+    } catch (err) {
+        next(err);
+    }
+}
+
 export default {
     postMovie,
     getMovies,
-    deleteMovie
+    deleteMovie,
+    putMovie
 }
