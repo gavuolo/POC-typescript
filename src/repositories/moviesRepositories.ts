@@ -12,13 +12,26 @@ async function createRepositoryMovie(movie: MovieBody): Promise<QueryResult> {
     )
 }
 
-async function allMovieRepository(){
+async function allMovieRepository() {
     return await db.query(`
         SELECT * FROM movies
     `)
+}
+async function getById(id: number) {
+    return await db.query(`
+    SELECT * FROM movies
+    WHERE id = $1
+    `, [id])
+}
+async function deleteMovieRepository(id: number) {
+    return await db.query(`
+    DELETE FROM movies WHERE id = $1
+    `, [id])
 }
 
 export default {
     createRepositoryMovie,
     allMovieRepository,
+    deleteMovieRepository,
+    getById
 }

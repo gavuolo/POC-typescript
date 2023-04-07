@@ -1,4 +1,4 @@
-function conflictError(message) {
+function conflictError(message: string) {
     return {
         name: "ConflictError",
         message,

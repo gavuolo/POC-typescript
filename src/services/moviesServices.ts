@@ -11,7 +11,15 @@ async function allMovie(){
     if (!rowCount) throw errors.notFoundError();
     return rows;
 }
+
+async function deleteMovies(id: number){
+    const movieById = await moviesRepositories.getById(id)
+    if (movieById.rowCount === 0) throw errors.notFoundError();
+    await moviesRepositories.deleteMovieRepository(id)
+    return movieById.rows[0]
+}
 export default{
     createMovie,
     allMovie,
+    deleteMovies
 }
