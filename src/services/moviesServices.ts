@@ -13,15 +13,18 @@ async function allMovie() {
 }
 
 async function deleteMovies(id: number) {
-    const movieById = await moviesRepositories.getById(id)
-    if (movieById.rowCount === 0) throw errors.notFoundError();
+    const {rows: [movieById] , rowCount }= await moviesRepositories.getById(id)
+    if (!rowCount) throw errors.notFoundError();
     await moviesRepositories.deleteMovieRepository(id)
-    return movieById.rows[0]
+    return movieById
 }
 
 async function updateStatus(id: number, comment: string) {
-    const movieById = await moviesRepositories.getById(id)
+    const movieById = await moviesRepositories.getById(id) 
     if (movieById.rowCount === 0) throw errors.notFoundError();
+    if(comment === undefined || comment === '') {
+        comment = null
+    }
     await moviesRepositories.updateMovieRepository(id, comment)
     return movieById.rows[0]
 }
