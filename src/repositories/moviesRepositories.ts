@@ -12,6 +12,13 @@ async function createRepositoryMovie(movie: MovieBody): Promise<QueryResult> {
     )
 }
 
+async function allMovieRepository(){
+    return await db.query(`
+        SELECT * FROM movies
+    `)
+}
+
 export default {
     createRepositoryMovie,
+    allMovieRepository,
 }

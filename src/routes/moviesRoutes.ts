@@ -5,5 +5,6 @@ import { movieSchemma } from "../schemas/movieSchema.js";
 const movieRoutes = Router();
 
 movieRoutes.post('/movie', validateSchema(movieSchemma), moviesControllers.postMovie)
+movieRoutes.get('/movie', moviesControllers.getMovies)
 
 export default movieRoutes;

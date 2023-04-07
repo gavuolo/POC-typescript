@@ -16,6 +16,16 @@ async function postMovie(req: Request, res: Response, next: Nextfunction) {
     }
 }
 
+async function getMovies(req: Request, res: Response, next: Nextfunction) {
+    try {
+        const movies = await moviesServices.allMovie();
+        return res.send({ movies })
+    } catch (err) {
+        next(err)
+    }
+
+}
 export default {
-    postMovie
+    postMovie,
+    getMovies
 }
